@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.9.3)
 
 include(cmake/cable/bootstrap.cmake)
 
@@ -10,6 +10,8 @@ include(HunterGate)
 include(defaults/HunterCacheServers)
 
 cable_configure_toolchain(DEFAULT cxx11)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(HUNTER_CONFIGURATION_TYPES Release CACHE STRING "Build type of Hunter packages")
 set(HUNTER_JOBS_NUMBER 6 CACHE STRING "Number of parallel builds used by Hunter")
@@ -61,6 +63,8 @@ function(configureProject)
     endif()
 endfunction()
 
+set(Boost_USE_STATIC_LIBS ON)
+set(Boost_USE_MULTITHREADED ON)
 hunter_add_package(Boost COMPONENTS system filesystem thread)
 find_package(Boost CONFIG REQUIRED COMPONENTS system filesystem thread)
 
